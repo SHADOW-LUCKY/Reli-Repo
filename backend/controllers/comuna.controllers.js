@@ -3,7 +3,7 @@ import getConnection from "../config/SQL.js";
 const getAll = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("SELECT * FROM Departamento;");
+        const result = await connection.query("SELECT * FROM Comuna;");
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -13,10 +13,10 @@ const getAll = async (req, res) => {
 
 const add = async(req, res) =>{
     try {
-        const {nombreDepartamento} = req.body;
-        const datos = {nombreDepartamento};
+        const {nombreComuna,idDepartamento} = req.body;
+        const datos = {nombreComuna,idDepartamento};
         const connection = await getConnection();
-        const result = await connection.query("INSERT INTO Departamento SET ?", datos);
+        const result = await connection.query("INSERT INTO Comuna SET ?", datos);
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -27,7 +27,7 @@ const del = async (req, res) => {
     try {
       const {id} = req.params;
       const connection = await getConnection();
-      const result = await connection.query("DELETE FROM Departamento WHERE idDepartamento=?", id);
+      const result = await connection.query("DELETE FROM Comuna WHERE idComuna=?", id);
       console.log(result);
       res.json(result);
     } catch (error) {
@@ -40,7 +40,7 @@ const getOne = async (req, res) => {
     try {
       const {id} = req.params;
       const connection = await getConnection();
-      const result = await connection.query("SELECT * FROM Departamento WHERE idDepartamento=?", id);
+      const result = await connection.query("SELECT * FROM Comuna WHERE idComuna=?", id);
       console.log(result);
       res.json(result);
     } catch (error) {
@@ -52,10 +52,10 @@ const getOne = async (req, res) => {
 const upd = async (req, res) => {
     try {
       const {id} = req.params;
-      const {nombreDepartamento} = req.body;
-      const datos = {nombreDepartamento};
+      const {nombreComuna,idDepartamento} = req.body;
+      const datos = {nombreComuna,idDepartamento};
       const connection = await getConnection();
-      const result = await connection.query("UPDATE Departamento SET ? WHERE idDepartamento=?", [datos, id]);
+      const result = await connection.query("UPDATE Comuna SET ? WHERE idComuna=?", [datos, id]);
       console.log(result);
       res.json(result);
     } catch (error) {
