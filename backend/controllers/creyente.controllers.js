@@ -3,7 +3,7 @@ import getConnection from "../config/SQL.js";
 const getAll = async (req, res) => {
     try {
         const connection = await getConnection();
-        const result = await connection.query("select Creyente.*,Barrio.nombreBarrio,Barrio.idComuna,Comuna.nombreComuna,Comuna.idMunicipio,Municipio.NombreMunicipio,Municipio.idDepartamento,Departamento.nombreDepartamentofrom Creyente,Barrio,Comuna,Municipio,Departamento where Creyente.idBarrio = Barrio.idBarrio AND Barrio.idComuna = Comuna.idComuna AND Municipio.idMunicipio=Comuna.idMunicipio AND Departamento.idDepartamento=Municipio.idDepartamento;");
+        const result = await connection.query("select Creyente.*,Barrio.nombreBarrio,Barrio.idComuna,Comuna.nombreComuna,Comuna.idMunicipio,Municipio.NombreMunicipio,Municipio.idDepartamento,Departamento.nombreDepartamento from Creyente,Barrio,Comuna,Municipio,Departamento where Creyente.idBarrio = Barrio.idBarrio AND Barrio.idComuna = Comuna.idComuna AND Municipio.idMunicipio=Comuna.idMunicipio AND Departamento.idDepartamento=Municipio.idDepartamento;");
         res.json(result);
     } catch (error) {
         res.status(500);
@@ -41,7 +41,8 @@ const getOne = async (req, res) => {
     try {
       const {id} = req.params;
       const connection = await getConnection();
-      const result = await connection.query("select Creyente.*,Barrio.nombreBarrio,Barrio.idComuna,Comuna.nombreComuna,Comuna.idMunicipio,Municipio.NombreMunicipio,Municipio.idDepartamento,Departamento.nombreDepartamento from Creyente,Barrio,Comuna,Municipio,Departamento where Creyente.idBarrio = Barrio.idBarrio AND Barrio.idComuna = Comuna.idComuna AND Municipio.idMunicipio=Comuna.idMunicipio AND Departamento.idDepartamento=Municipio.idDepartamento AND idBarrio=?", id);
+      const result = await connection.query(`select Creyente.*,Barrio.nombreBarrio,Barrio.idComuna,Comuna.nombreComuna,Comuna.idMunicipio,Municipio.NombreMunicipio,Municipio.idDepartamento,Departamento.nombreDepartamento from Creyente,Barrio,Comuna,Municipio,Departamento where Creyente.idBarrio = Barrio.idBarrio AND Barrio.idComuna = Comuna.idComuna AND Municipio.idMunicipio=Comuna.idMunicipio AND Departamento.idDepartamento=Municipio.idDepartamento 
+      AND Creyente.ididentificacion=?`, id);
       console.log(result);
       res.json(result);
     } catch (error) {
