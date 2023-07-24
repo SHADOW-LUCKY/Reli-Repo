@@ -20,6 +20,10 @@ const creyenteSchema = new mongoose.Schema(
     nombreCreyente: {
         type: String,
         required: true
+    },
+    ididentificacion: {
+        type: String,
+        required: true
     }
 },
 {

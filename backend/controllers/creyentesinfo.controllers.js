@@ -2,7 +2,16 @@ import belief from "../models/creyente.js";
 
 const getAll = async (req, res) => {
     try {
-        const creyente = await belief.find();
+        const creyente = await belief.find(req.params.id);
+        res.json(creyente);
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+}
+const getOne = async (req, res) => {
+    try {
+        const creyente = await belief.find({ididentificacion:req.params.id});
         res.json(creyente);
     } catch (error) {
         res.status(500);
@@ -13,7 +22,7 @@ const getAll = async (req, res) => {
 const postCre = async (req, res) => {
     try {
         const creyente = await belief.create(req.body);
-        res.json({message: "creyente creado"}, creyente);
+        res.json(creyente);
     } catch (error) {
         res.status(500);
         res.send(error.message);
@@ -22,7 +31,7 @@ const postCre = async (req, res) => {
 
 const delCre = async (req, res) => {
     try {
-        const creyente = await belief.findByIdAndDelete(req.params.id);
+        const creyente = await belief.findOneAndDelete({ididentificacion:req.params.id})
         res.json(creyente);
     } catch (error) {
         res.status(500);
@@ -42,6 +51,7 @@ const updCre = async (req, res) => {
 
 export const meth = {
     getAll,
+    getOne,
     postCre,
     delCre,
     updCre
